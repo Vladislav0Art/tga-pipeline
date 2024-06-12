@@ -62,6 +62,7 @@ class JacocoCoverageProvider(
 
     override fun computeCoverage(benchmark: Benchmark, testSuite: TestSuite): ClassCoverageInfo {
         log.debug("Computing coverage: compiledDir='{}'", compiledDir)
+        println("Computing coverage: compiledDir='$compiledDir'")
 
         // set of sources containing both test cases and the test suite
         val allTests = testSuite.tests.associateWith { testSuite.testSrcPath.resolve(it.asmString + ".java") }

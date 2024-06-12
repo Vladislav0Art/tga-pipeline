@@ -18,3 +18,9 @@ task<JavaExec>("runCoverage") {
     classpath = sourceSets["main"].runtimeClasspath
     mainClass.set("org.plan.research.tga.runner.coverage.jacoco.MainKt")
 }
+
+//tasks.register<Wrapper>("wrapper") {
+//    gradleVersion = "7.2"
+//}
+
+tasks.register("prepareKotlinBuildScriptModel"){}

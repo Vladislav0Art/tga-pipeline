@@ -9,3 +9,9 @@ dependencies {
     implementation("commons-cli:commons-cli:$commonsCliVersion")
     implementation("dev.jeka:jeka-core:$jekaVersion")
 }
+
+//tasks.register<Wrapper>("wrapper") {
+//    gradleVersion = "7.2"
+//}
+
+tasks.register("prepareKotlinBuildScriptModel"){}

@@ -33,6 +33,16 @@ private class TestSparkCliParser(args: List<String>) : TgaConfig("TestSpark", op
             )
 
             addOption(
+                Option(null, "javaHome", true, "Dirpath to the Java SDK, e.g. '/home/ubuntu/.jdks/corretto-17.0.11/'")
+                    .also { it.isRequired = true }
+            )
+
+            addOption(
+                Option(null, "junitv", true, "JUnit version to use (4 or 5)")
+                    .also { it.isRequired = true }
+            )
+
+            addOption(
                 Option(null, "llm", true, "llm for test generation")
                     .also { it.isRequired = false }
             )
@@ -89,17 +99,17 @@ class TestSparkCliTool(args: List<String>) : TestGenerationTool {
 
         private const val DEFAULT_LLM = "GPT-4"
         private const val DEFAULT_PROMPT =
-            "Generate unit tests in \$LANGUAGE for \$NAME to achieve 100% line coverage for this class.\\n" +
-                    "Dont use @Before and @After test methods.\\n" +
-                    "Make tests as atomic as possible.\\n" +
-                    "All tests should be for \$TESTING_PLATFORM.\\n" +
-                    "In case of mocking, use \$MOCKING_FRAMEWORK. But, do not use mocking for all tests.\\n" +
-                    "Name all methods according to the template - [MethodUnderTest][Scenario]Test, and use only English letters.\\n" +
-                    "The source code of class under test is as follows:\\n" +
-                    "\$CODE\\n" +
-                    "Here are some information about other methods and classes used by the class under test. Only use them for creating objects, not your own ideas.\\n" +
-                    "\$METHODS\\n" +
-                    "\$POLYMORPHISM"
+            "Generate unit tests in \$LANGUAGE for \$NAME to achieve 100% line coverage for this class.\n" +
+                    "Dont use @Before and @After test methods.\n" +
+                    "Make tests as atomic as possible.\n" +
+                    "All tests should be for \$TESTING_PLATFORM.\n" +
+                    "In case of mocking, use \$MOCKING_FRAMEWORK. But, do not use mocking for all tests.\n" +
+                    "Name all methods according to the template - [MethodUnderTest][Scenario]Test, and use only English letters.\n" +
+                    "The source code of class under test is as follows:\n" +
+                    "\$CODE\n" +
+                    "\$METHODS\n" +
+                    "\$POLYMORPHISM\n" +
+                    "\$TEST_SAMPLE"
     }
 
     private lateinit var src: Path
@@ -116,7 +126,7 @@ class TestSparkCliTool(args: List<String>) : TestGenerationTool {
         var process: Process? = null
         try {
             val processBuilder = ProcessBuilder(
-                "bash", "${TEST_SPARK_HOME.resolve("runTestSpark.sh")}",
+                "bash", "${TEST_SPARK_HOME.resolve("runTestSparkHeadless.sh")}", // runTestSparkHeadless
                 "${src.toAbsolutePath()}", // path to project root
                 "src/main/java/${
                     target.replace(
@@ -126,10 +136,12 @@ class TestSparkCliTool(args: List<String>) : TestGenerationTool {
                 }.java", // path to target source file relative to the project root
                 target, // fully qualified name of the target
                 classPath.joinToString(File.pathSeparator!!), // class path
+                argParser.getCmdValue("junitv")!!, // JUnit version
                 argParser.getCmdValue("llm", DEFAULT_LLM), // LLM to use
                 argParser.getCmdValue("llmToken")!!, // token to access chosen LLM
                 "${promptFile.toAbsolutePath()}", // path to prompt file
                 "${outputDirectory.toAbsolutePath()}", // path to output directory
+                argParser.getCmdValue("javaHome")!!, // dirpath to the Java SDK
                 argParser.getCmdValue("spaceUser")!!, // Space username
                 argParser.getCmdValue("spaceToken")!!, // token for accessing Space
             )

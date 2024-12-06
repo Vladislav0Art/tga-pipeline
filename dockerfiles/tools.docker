@@ -3,20 +3,20 @@ MAINTAINER Azat Abdullin <azat.aam@gmail.com>
 
 ARG KEX_VERSION=0.0.8
 ARG TEST_SPARK_ORIGIN=https://github.com/Vladislav0Art/TestSpark.git
-ARG TEST_SPARK_COMMIT=4732990883277e0d4bbb1b6e59231dae1d219fd0
+ARG TEST_SPARK_COMMIT=c9a6f0605816e5035971e85e6a7bf8dbec2e2df9
 
 # make tools dir
 USER root
 RUN mkdir /var/tools
 
 # install kex
-USER root
-WORKDIR /var/tools
-RUN mkdir kex
-WORKDIR /var/tools/kex
-RUN wget https://github.com/vorpal-research/kex/releases/download/$KEX_VERSION/kex-$KEX_VERSION.zip
-RUN unzip kex-$KEX_VERSION.zip
-ENV KEX_HOME=/var/tools/kex
+# USER root
+# WORKDIR /var/tools
+# RUN mkdir kex
+# WORKDIR /var/tools/kex
+# RUN wget https://github.com/vorpal-research/kex/releases/download/$KEX_VERSION/kex-$KEX_VERSION.zip
+# RUN unzip kex-$KEX_VERSION.zip
+# ENV KEX_HOME=/var/tools/kex
 
 # install TestSpark
 USER root
@@ -30,13 +30,13 @@ RUN git checkout $TEST_SPARK_COMMIT
 ENV TEST_SPARK_HOME=/var/tools/TestSpark
 
 # install Jazzer
-USER root
-WORKDIR /var/tools
-RUN mkdir Jazzer
-WORKDIR /var/tools/Jazzer
-RUN wget https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.22.1/jazzer-linux.tar.gz
-RUN tar -xvzf jazzer-linux.tar.gz
-ENV JAZZER_HOME=/var/tools/Jazzer
+# USER root
+# WORKDIR /var/tools
+# RUN mkdir Jazzer
+# WORKDIR /var/tools/Jazzer
+# RUN wget https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.22.1/jazzer-linux.tar.gz
+# RUN tar -xvzf jazzer-linux.tar.gz
+# ENV JAZZER_HOME=/var/tools/Jazzer
 
 # run tool
 USER root

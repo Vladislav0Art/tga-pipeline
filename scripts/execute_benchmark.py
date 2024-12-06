@@ -88,7 +88,7 @@ def main():
         print(compose_file)
         file.write(str(compose_file))
 
-    subprocess.run(['docker-compose', '-f', tmp.name, 'up'])
+    subprocess.run(['docker-compose', '-f', tmp.name, 'up']) # '--remove-orphans'
     subprocess.run(['docker-compose', '-f', tmp.name, 'down'])
 
 

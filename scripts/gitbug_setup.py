@@ -156,7 +156,10 @@ def download_projects(gitbug_data_dir, output_dir, apply_patch):
 
 			project_dir = build(project_data, project_dir, apply_patch)
 			if project_dir == None:
+				logging.error(f"Build for project '{project_dir}' failed")
 				continue
+			else:
+				logging.info(f"Build for project '{project_dir}' succeeded")
 
 			downloaded_projects.append([project_data, project_dir])
 	return downloaded_projects

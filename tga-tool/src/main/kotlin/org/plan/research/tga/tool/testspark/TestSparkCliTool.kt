@@ -87,16 +87,17 @@ class TestSparkCliTool(args: List<String>) : TestGenerationTool {
         private const val METHODS = "\$METHODS"
         private const val POLYMORPHISM = "\$POLYMORPHISM"
         private const val DEFAULT_PROMPT =
-            """Generate unit tests in $LANGUAGE for $NAME to achieve 100% line coverage for this class.
-Dont use @Before and @After test methods.
-Make tests as atomic as possible.
-All tests should be for $TESTING_PLATFORM.
-In case of mocking, use $MOCKING_FRAMEWORK. But, do not use mocking for all tests.
-Name all methods according to the template - [MethodUnderTest][Scenario]Test, and use only English letters.
+            """Generate unit tests in $LANGUAGE for `$NAME` maximizing line coverage for this class.
+
+REQUIREMENTS:
+1. DO NOT use @Before and @After test methods.
+2. Make test cases as atomic as possible.
+3. All tests should be written using $TESTING_PLATFORM.
+4. When mocking, use $MOCKING_FRAMEWORK. However, DO NOT use mocking for all test cases.
+5. Name ALL methods according to the template: `[MethodUnderTest][Scenario]Test`. Use only English letters.
+
 The source code of class under test is as follows:
-$CODE
-$METHODS
-$POLYMORPHISM"""
+$CODE"""
 
         private const val TEST_SPARK_LOG = "test-spark.log"
     }

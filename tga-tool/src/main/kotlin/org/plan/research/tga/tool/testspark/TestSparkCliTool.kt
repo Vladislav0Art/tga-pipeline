@@ -68,12 +68,7 @@ class TestSparkCliTool(args: List<String>) : TestGenerationTool {
 
     private val argParser = TestSparkCliParser(args)
     private val promptFile = Files.createTempFile("prompt", ".txt")!!.also {
-        val promptFilepath = argParser.getCmdValue("prompt")
-        val providedPromptContent = promptFilepath?.let {
-            File(promptFilepath).readText()
-        }
-
-        val promptContent = providedPromptContent ?: DEFAULT_PROMPT
+        val promptContent = argParser.getCmdValue("prompt") ?: DEFAULT_PROMPT
         log.debug("promptContent: '$promptContent'")
         log.debug("Temp file where prompt is saved: '${it.absolutePathString()}'")
         it.writeText(promptContent)

@@ -1,7 +1,8 @@
 FROM abdullin/tga-pipeline:benchmarks-latest
 MAINTAINER Azat Abdullin <azat.aam@gmail.com>
 
-ARG PIPELINE_VERSION=0.0.34
+ARG PIPELINE_VERSION=4ede5f2a4e831fc00b32072db7777cc5a1364e0f # 0.0.34
+ARG PIPELINE_ORIGIN=https://github.com/Vladislav0Art/tga-pipeline.git
 
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 
@@ -14,7 +15,7 @@ RUN apt-get -y install \
 # install pipeline
 USER root
 WORKDIR /
-RUN git clone https://github.com/plan-research/tga-pipeline.git
+RUN git clone $PIPELINE_ORIGIN
 WORKDIR /tga-pipeline
 RUN git checkout $PIPELINE_VERSION
 ENV TGA_PIPELINE_HOME=/tga-pipeline

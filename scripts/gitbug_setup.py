@@ -10,6 +10,8 @@ import tempfile
 
 from cut_info import cut_map
 
+
+
 def clone(output_dir, project_json) -> str:
 	if not os.path.exists(output_dir):
 		os.makedirs(output_dir)
@@ -154,12 +156,15 @@ def download_projects(gitbug_data_dir, output_dir, apply_patch):
 			if project_dir == None:
 				continue
 
+			project_name_ = project_dir
+
 			project_dir = build(project_data, project_dir, apply_patch)
 			if project_dir == None:
-				logging.error(f"Build for project '{project_dir}' failed")
+				logging.error(f"Build for project '{project_name_}' failed")
 				continue
 			else:
-				logging.info(f"Build for project '{project_dir}' succeeded")
+				logging.info(f"Build for project '{project_name_}' succeeded")
+			logging.info("===============================================")
 
 			downloaded_projects.append([project_data, project_dir])
 	return downloaded_projects
@@ -236,15 +241,6 @@ def produce_benchmarks(downloaded_projects):
 	return benchmarks
 
 def main():
-	logging.basicConfig(
-		handlers=[
-			logging.FileHandler("gitbug_setup.log"),
-			logging.StreamHandler()
-		],
-		format='[%(asctime)s][%(levelname)s] %(message)s',
-		level=logging.INFO
-	)
-
 	if len(sys.argv) < 4:
 		logging.error("Usage: `./gutbug_setup.py *path to GitBug root* *path to output dir* *apply patches*`")
 		sys.exit(1)
@@ -252,6 +248,16 @@ def main():
 	gitbug_data_dir = os.path.join(sys.argv[1], 'data/bugs/')
 	output_dir = sys.argv[2]
 	apply_patch = (sys.argv[3] == 'True')
+
+	logging_filepath = os.path.join(output_dir, 'gitbug_setup.log')
+	logging.basicConfig(
+		handlers=[
+			logging.FileHandler(logging_filepath),
+			logging.StreamHandler()
+		],
+		format='[%(asctime)s][%(levelname)s] %(message)s',
+		level=logging.INFO
+	)
 
 	downloaded_projects = download_projects(gitbug_data_dir, output_dir, apply_patch)
 	benchmarks = produce_benchmarks(downloaded_projects)

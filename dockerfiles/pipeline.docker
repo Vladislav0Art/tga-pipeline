@@ -1,7 +1,7 @@
 FROM abdullin/tga-pipeline:benchmarks-latest
 MAINTAINER Azat Abdullin <azat.aam@gmail.com>
 
-ARG PIPELINE_VERSION=4ede5f2a4e831fc00b32072db7777cc5a1364e0f # 0.0.34
+ARG PIPELINE_VERSION=10bd33d1a1f58ccf18bdd615d6e948a3db9786b1 # 0.0.34
 ARG PIPELINE_ORIGIN=https://github.com/Vladislav0Art/tga-pipeline.git
 
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/

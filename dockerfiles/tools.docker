@@ -3,7 +3,7 @@ MAINTAINER Azat Abdullin <azat.aam@gmail.com>
 
 ARG KEX_VERSION=0.0.8
 ARG TEST_SPARK_ORIGIN=https://github.com/Vladislav0Art/TestSpark.git
-ARG TEST_SPARK_COMMIT=1d8f0439f0edf8cac0930e0be86b030773490206
+ARG TEST_SPARK_COMMIT=fe29565949c4d8b6dced28ff1bad8888d6b444d5
 
 # make tools dir
 USER root

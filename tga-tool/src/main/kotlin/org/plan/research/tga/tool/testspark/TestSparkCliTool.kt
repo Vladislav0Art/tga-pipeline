@@ -170,7 +170,7 @@ $CODE"""
                 argParser.getCmdValue("llmToken")!!, // token to access chosen LLM
                 "${promptFile.toAbsolutePath()}", // path to prompt file
                 "${outputDirectory.toAbsolutePath()}", // path to output directory
-                "false", // disable coverage computation
+                "true", // enable coverage computation
                 argParser.getCmdValue("spaceUser")!!, // Space username
                 argParser.getCmdValue("spaceToken")!!, // token for accessing Space
             ) {

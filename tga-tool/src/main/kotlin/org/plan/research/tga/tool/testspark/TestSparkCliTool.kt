@@ -18,6 +18,7 @@ import java.io.InputStreamReader
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.concurrent.TimeUnit
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.bufferedWriter
 import kotlin.io.path.writeText
@@ -113,11 +114,44 @@ $CODE"""
 
     override fun run(target: String, timeLimit: Duration, outputDirectory: Path) {
         // first, kill any running Gradle daemons left from the execution
-        executeProcess("/bin/sh", "${TEST_SPARK_HOME.resolve("gradlew")}", "--stop")
+        // executeProcess("/bin/sh", "${TEST_SPARK_HOME.resolve("gradlew")}", "--stop")
 
         this.outputDirectory = outputDirectory.also {
             it.toFile().mkdirs()
         }
+
+        var daemonsStopProcess: Process? = null
+        try {
+            daemonsStopProcess = buildProcess("/bin/sh", "${TEST_SPARK_HOME.resolve("gradlew")}", "--stop") {
+                redirectErrorStream(true)
+                log.debug("Stopping IDE daemons for TestSpark with command: {}", command())
+            }
+
+            log.debug("Configure reader for the TestSpark's daemons stopping process")
+            outputDirectory.resolve(TEST_SPARK_LOG).bufferedWriter().use { writer ->
+                val reader = BufferedReader(InputStreamReader(daemonsStopProcess.inputStream))
+                while (true) {
+                    val line = reader.readLine() ?: break
+                    writer.write(line)
+                    writer.write("\n")
+                }
+            }
+            log.debug("Waiting for the TestSpark's daemons stopping process...")
+
+            daemonsStopProcess.waitFor(90L, TimeUnit.SECONDS)
+
+            log.debug("TestSpark's daemons stopping process has merged")
+        }
+        catch (e: InterruptedException) {
+            log.error("TestSpark's daemons stopping process was interrupted on target $target")
+        }
+        finally {
+            log.debug(daemonsStopProcess?.inputStream?.bufferedReader()?.readText())
+            daemonsStopProcess?.terminateOrKill(attempts = 10U, waitTime = 500.milliseconds)
+        }
+
+
+
         var process: Process? = null
         try {
             process = buildProcess(

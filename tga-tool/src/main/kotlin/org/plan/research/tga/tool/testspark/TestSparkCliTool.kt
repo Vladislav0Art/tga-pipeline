@@ -85,6 +85,7 @@ class TestSparkCliTool(args: List<String>) : TestGenerationTool {
         private const val TESTING_PLATFORM = "\$TESTING_PLATFORM"
         private const val MOCKING_FRAMEWORK = "\$MOCKING_FRAMEWORK"
         private const val CODE = "\$CODE"
+        private const val METHOD_DECLARATIONS = "\$METHOD_DECLARATIONS"
         private const val METHODS = "\$METHODS"
         private const val POLYMORPHISM = "\$POLYMORPHISM"
         private const val DEFAULT_PROMPT =
@@ -98,7 +99,7 @@ REQUIREMENTS:
 5. Name ALL methods according to the template: `[MethodUnderTest][Scenario]Test`. Use only English letters.
 
 The source code of class under test is as follows:
-$CODE"""
+$METHOD_DECLARATIONS"""
 
         private const val TEST_SPARK_LOG = "test-spark.log"
     }
@@ -217,10 +218,24 @@ $CODE"""
 
     private fun getTestCasesFromSrcPath(testSrcPath: Path): List<String> {
         // collect only individual test cases, so that we are able to compute the compilation rate later
+        log.debug("Considering filepath testSrcPath (start walking): '{}'", testSrcPath.toAbsolutePath())
+
         val individualTestCases = Files.walk(testSrcPath)
             .filter { it.fileName.toString().endsWith(".java") }
             .filter { !it.fileName.toString().endsWith("GeneratedTest.java") }
-            .map { testSrcPath.relativize(it).toString().javaString.removeSuffix(".java") }
+            .map {
+                log.debug("Considering path: '{}'", it.toAbsolutePath())
+                val intermediateResult = testSrcPath.relativize(it).toString()
+                log.debug("intermediateResult: '{}'", intermediateResult)
+
+                val resultWithSuffix = intermediateResult.javaString
+                log.debug("resultWithSuffix: '{}'", resultWithSuffix)
+
+                val result = resultWithSuffix.removeSuffix(".java")
+                log.debug("Resulting path: '{}'", result)
+
+                result
+            }
             .toList()
         log.debug("TestSpark generated test cases: {}", individualTestCases)
         return individualTestCases

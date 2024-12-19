@@ -240,7 +240,7 @@ fun main(args: Array<String>) {
 
                     // Paths.get("$tool-$runName-$iteration.csv")
                     csvSaveFilepath.bufferedWriter().use {
-                        it.write(csvHeader)
+                        it.write("$csvHeader\n")
                         it.write(allData.joinToString("\n"))
                     }
                 }

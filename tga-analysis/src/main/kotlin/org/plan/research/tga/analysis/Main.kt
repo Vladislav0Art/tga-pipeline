@@ -115,7 +115,11 @@ fun main(args: Array<String>) {
         .associateBy { it.buildId }
     val tools = resultsDir.listDirectoryEntries().filter { it.isDirectory() }.map { it.name }
         .filter { it == config.getCmdValue("tool") }
-    log.debug(tools)
+
+    log.debug("resultsDir: {}", resultsDir)
+    log.debug("benchmarksDir: {}", benchmarksDir)
+//    log.debug("benchmarksPatched: {}", benchmarksPatched)
+    log.debug("tools: {}", tools)
 
     val threads = config.getCmdValue("threads")?.toInt() ?: 10
     val coroutineContext = newFixedThreadPoolContext(threads, "analysis-dispatcher")
@@ -144,20 +148,26 @@ fun main(args: Array<String>) {
                     for (benchmarkName in benchmarks.sorted()) {
                         allJobs += async {
                             val benchmarkDir = runDir.resolve(benchmarkName)
+                            // log.debug("benchmarkDir: {}", benchmarkDir)
                             if (!benchmarkDir.exists()) return@async
 
                             val benchmark = serializer.decodeFromString<Benchmark>(
                                 benchmarkDir.walk().firstOrNull { it.name == "benchmark.json" }?.readText()
                                     ?: return@async
-                            ).remap(DOCKER_BENCHMARKS_DIR, benchmarksDir)
+                            )//.remap(DOCKER_BENCHMARKS_DIR, benchmarksDir)
                             val testSuite = serializer.decodeFromString<TestSuite>(
                                 benchmarkDir.walk().firstOrNull { it.name == "testSuite.json" }?.readText()
                                     ?: return@async
-                            ).remap(DOCKER_RESULTS_DIR, resultsDir)
+                            )//.remap(DOCKER_RESULTS_DIR, resultsDir)
+
+                            // log.debug("benchmark: {}", benchmark)
+                            // log.debug("testSuite: {}", testSuite)
+                            // log.debug("testSrcPath: exists={} {}", testSuite.testSrcPath.exists(), testSuite.testSrcPath)
 
                             if (!testSuite.testSrcPath.exists()) return@async
 
                             val compilationResult = compiler.compile(benchmark, testSuite)
+                            log.debug("compilationResult: {}", compilationResult)
                             val failures = JUnitExternalRunner().run(compilationResult)
                             testSuite.testSrcPath.resolve("failures.json").bufferedWriter().use {
                                 it.write(serializer.encodeToString(failures))
@@ -177,7 +187,7 @@ fun main(args: Array<String>) {
                                 .computeMutationScore(benchmark, testSuite, compilationResult)
 
                             allData += String.format(
-                                "%s, %s, %d, %s, %s, %d, %d, %.2f, %d, %d, %.2f, %d, %d, %.2f, %d, %d, %.2f, %s",
+                                "%s,%s,%d,%s,%s,%d,%d,%.2f,%d,%d,%.2f,%d,%d,%.2f,%d,%d,%.2f,%s",
                                 tool,
                                 runName,
                                 iteration,
@@ -196,14 +206,41 @@ fun main(args: Array<String>) {
                                 mutationScore.denominator,
                                 mutationScore.ratio * 100.0,
                                 benchmarkProperties[benchmarkName]?.toList()
-                                    ?.joinToString(", ") { "${it.first} -> ${it.second}" } ?: ""
+                                    ?.joinToString("| ") { "${it.first} -> ${it.second}" } ?: ""
                             )
 
                             tryOrNull { compilationResult.compiledDir.deleteRecursively() }
                         }
                     }
                     allJobs.awaitAll()
-                    Paths.get("$tool-$runName-$iteration.csv").bufferedWriter().use {
+
+                    val csvHeader = String.format(
+                        "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                        "tool",
+                        "runName",
+                        "iteration",
+                        "buildId",
+                        "klass",
+                        "compilationRateNumerator",
+                        "compilationRateDenominator",
+                        "compilationRatePercent",
+                        "linesCovered",
+                        "linesTotal",
+                        "lineCoveragePercent",
+                        "branchesCovered",
+                        "branchesTotal",
+                        "branchCoveragePercent",
+                        "mutationScoreNumerator",
+                        "mutationScoreDenominator",
+                        "mutationScorePercent",
+                        "benchmarkProperties"
+                    )
+
+                    val csvSaveFilepath = runDir.resolve("$tool-$runName-$iteration.csv")
+
+                    // Paths.get("$tool-$runName-$iteration.csv")
+                    csvSaveFilepath.bufferedWriter().use {
+                        it.write(csvHeader)
                         it.write(allData.joinToString("\n"))
                     }
                 }

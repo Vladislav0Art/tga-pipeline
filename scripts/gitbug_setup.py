@@ -83,7 +83,12 @@ def build(project_json, project_dir, apply_patch):
 	logging.info("Detected build system: {}".format(build_system))
 
 	if build_system == 'maven':
-		process = subprocess.Popen(['mvn', 'clean', 'package', '-DskipTests'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		process = subprocess.Popen(
+			['mvn', 'clean', 'package', '-DskipTests'],
+			stdout=subprocess.PIPE,
+			stderr=subprocess.PIPE,
+			env=os.environ,
+		)
 		output, err = process.communicate()
 		if process.returncode != 0:
 			logging.error("Failed to build maven project {}".format(project_dir))
@@ -92,7 +97,12 @@ def build(project_json, project_dir, apply_patch):
 			shutil.rmtree(project_dir)
 			return None
 
-		process = subprocess.Popen(['mvn', 'dependency:copy-dependencies'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		process = subprocess.Popen(
+			['mvn', 'dependency:copy-dependencies'],
+			stdout=subprocess.PIPE,
+			stderr=subprocess.PIPE,
+			env=os.environ,
+		)
 		_, _ = process.communicate()
 		if process.returncode != 0:
 			logging.error("Failed to copy maven dependencies {}".format(project_dir))
@@ -100,7 +110,12 @@ def build(project_json, project_dir, apply_patch):
 			return None
 
 	elif build_system == 'gradle-kotlin' or build_system == 'gradle-groovy':
-		process = subprocess.Popen(['./gradlew', 'build', '-x', 'test'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		process = subprocess.Popen(
+			['./gradlew', 'build', '-x', 'test'],
+			stdout=subprocess.PIPE,
+			stderr=subprocess.PIPE,
+			env=os.environ,
+		)
 		output, err = process.communicate()
 		if process.returncode != 0:
 			logging.error("Failed to build kotlin gradle project {}".format(project_dir))
@@ -269,4 +284,7 @@ def main():
 
 
 if __name__ == '__main__':
+	print(f"JAVA_HOME: {os.environ['JAVA_HOME']}")
+	print(f"PATH: {os.environ['PATH']}")
+
 	main()

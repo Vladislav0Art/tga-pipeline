@@ -6,10 +6,13 @@ import logging
 
 TGA_PIPELINE_HOME = "/home/ubuntu/research-work-2024/tga-pipeline"
 
+# TODO: create config for several executions like in run_eval.py
 config = {
     # tool's name will be attached to this path
     # /home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-31-70B-Instruct/configuration-I/local/
-    "resultsPath": "/home/ubuntu/research-work-2024/headless-out/test",
+    # /home/ubuntu/research-work-2024/headless-out/test
+    # "/home/ubuntu/research-work-2024/evaluation/configurations/RQ2/GPT-4/configuration-I/test",
+    "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct",
     "benchmarksPath": "/home/ubuntu/research-work-2024/evaluation/benchmark/benchmarks",
     "benchmarksPatchedPath": "/home/ubuntu/research-work-2024/evaluation/benchmark/benchmarks/benchmarks.json",
     "tool": "TestSpark",

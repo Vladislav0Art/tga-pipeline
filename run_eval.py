@@ -11,25 +11,77 @@ TOOL = 'TestSpark'
 RUNNER_HOST = 'localhost'
 RUNNER_PORT = 8000
 
-configs = [
-    dict({
-        'model': 'Code-Llama-70B-Instruct',
-        'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-31-70B-Instruct/configuration-II/local',
-    }),
+
+# rq1_config2 = [
+#     dict({
+#         'model': 'Code-Llama-70B-Instruct',
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-31-70B-Instruct/configuration-II/local',
+#     }),
+#     dict({
+#         'model': 'Llama-3-8B-Instruct',
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-31-8B-Instruct/configuration-II/local',
+#     }),
+#     dict({
+#         'model': 'llama3.2', # Llama3.2-3B
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-32-3B-Instruct/configuration-II/local',
+#     }),
+#     dict({
+#         'model': 'llama3.2:1b', # Llama3.2-1B
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-32-1B-Instruct/configuration-II/local',
+#     }),
+# ]
+
+
+# METHODS_DECLARATION + 5 iterations
+rq2_config1 = [
+    # dict({
+    #     'model': 'GPT-4',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4',
+    # }),
+    # dict({
+    #     'model': 'Code-Llama-70B-Instruct',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct',
+    # }),
     dict({
         'model': 'Llama-3-8B-Instruct',
-        'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-31-8B-Instruct/configuration-II/local',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct',
     }),
     dict({
         'model': 'llama3.2', # Llama3.2-3B
-        'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-32-3B-Instruct/configuration-II/local',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct',
     }),
     dict({
         'model': 'llama3.2:1b', # Llama3.2-1B
-        'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-32-1B-Instruct/configuration-II/local',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct',
     }),
 ]
 
+
+# test_config = [
+#     dict({
+#         'model': 'Code-Llama-70B-Instruct',
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ2/Llama-31-70B-Instruct/configuration-I/test',
+#     }),
+#     dict({
+#         'model': 'Llama-3-8B-Instruct',
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ2/Llama-31-8B-Instruct/configuration-I/test',
+#     }),
+#     dict({
+#         'model': 'llama3.2',
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ2/Llama-32-3B-Instruct/configuration-I/test',
+#     }),
+#     dict({
+#         'model': 'GPT-4',
+#         'output': '/home/ubuntu/research-work-2024/evaluation/configurations/RQ2/GPT-4/configuration-I/test',
+#     }),
+# ]
+
+# test_config = [
+#     dict({
+#         'model': 'GPT-4',
+#         'output': '/home/ubuntu/research-work-2024/headless-out/test',
+#     })
+# ]
 
 # Configure logging to output both to a file and to STDOUT
 logging.basicConfig(
@@ -42,7 +94,7 @@ logging.basicConfig(
 )
 
 
-def execute_pipeline_for_config(args):
+def execute_pipeline_for_config(args, configs):
     os.environ['TGA_PIPELINE_HOME'] = TGA_PIPELINE_HOME
     os.environ['TEST_SPARK_HOME'] = TEST_SPARK_HOME
 
@@ -201,7 +253,7 @@ def main():
         'spaceToken': args.spaceToken,
     }
 
-    execute_pipeline_for_config(args=pipeline_args)
+    execute_pipeline_for_config(args=pipeline_args, configs=rq2_config1)
 
     # execute_pipeline(args=pipeline_args)
 

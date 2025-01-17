@@ -19,38 +19,38 @@ configs = [
         "format": "reduced",
         "prompt_id": "RQ2",
     },
-    # # Llama-31-70B-Instruct
-    # {
-    #     "model": "Llama-31-70B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "RQ2",
-    # },
-    # # Llama-31-8B-Instruct
-    # {
-    #     "model": "Llama-31-8B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "RQ2",
-    # },
-    # # Llama-32-3B-Instruct
-    # {
-    #     "model": "Llama-32-3B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "RQ2",
-    # },
-    # # Llama-32-1B-Instruct
-    # {
-    #     "model": "Llama-32-1B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "RQ2",
-    # },
+    # Llama-31-70B-Instruct
+    {
+        "model": "Llama-31-70B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "RQ2",
+    },
+    # Llama-31-8B-Instruct
+    {
+        "model": "Llama-31-8B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "RQ2",
+    },
+    # Llama-32-3B-Instruct
+    {
+        "model": "Llama-32-3B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "RQ2",
+    },
+    # Llama-32-1B-Instruct
+    {
+        "model": "Llama-32-1B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "RQ2",
+    },
 ]
 
 
@@ -141,11 +141,10 @@ def collect_iterations_executation_data(project_filepath: str) -> List[Executati
                     reader = csv.DictReader(csvfile)
 
                     logging.info(f"Assuming a header row is present. Skipping it...")
-                    # Skip the header row
-                    next(reader)
                     logging.info(f"The header row skipped")
 
                     count = 0
+                    # reader starts directly from the data rows, skipping the header row
                     for row in reader:
                         count += 1
 

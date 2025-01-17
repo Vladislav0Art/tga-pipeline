@@ -108,7 +108,7 @@ def main():
     for model_config in model_configs:
         config = { **common_config, **model_config }
 
-        logging.info(f"Running analysis evaluation for model: {model_config['resultsPath']}")
+        logging.info(f"==== Running analysis evaluation for '{model_config['name']}' ====")
 
         logging.info('Starting analysis evaluation...')
         logging.info(f"resultsPath: {config['resultsPath']}")
@@ -118,6 +118,7 @@ def main():
         logging.info(f"tool: {config['tool']}")
 
         execute_analysis(config)
+        logging.info(f"==== Analysis evaluation for '{model_config['name']}' finished ====")
 
 
 

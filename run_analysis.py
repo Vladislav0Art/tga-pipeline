@@ -6,18 +6,54 @@ import logging
 
 TGA_PIPELINE_HOME = "/home/ubuntu/research-work-2024/tga-pipeline"
 
-# TODO: create config for several executions like in run_eval.py
-config = {
-    # tool's name will be attached to this path
-    # /home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-31-70B-Instruct/configuration-I/local/
-    # /home/ubuntu/research-work-2024/headless-out/test
-    # "/home/ubuntu/research-work-2024/evaluation/configurations/RQ2/GPT-4/configuration-I/test",
-    "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct",
+
+common_config = {
     "benchmarksPath": "/home/ubuntu/research-work-2024/evaluation/benchmark/benchmarks",
     "benchmarksPatchedPath": "/home/ubuntu/research-work-2024/evaluation/benchmark/benchmarks/benchmarks.json",
     "tool": "TestSpark",
     "threads": 2,
 }
+
+model_configs = [
+    # GPT-4
+    # {
+    #     "name": "GPT-4",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4",
+    # },
+    # Llama-70B
+    {
+        "name": "Llama-70B",
+        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct",
+    },
+    # Llama-8B
+    {
+        "name": "Llama-8B",
+        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct",
+    },
+    # Llama-3B
+    {
+        "name": "Llama-3B",
+        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct",
+    },
+    # Llama-1B
+    {
+        "name": "Llama-1B",
+        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct",
+    },
+]
+
+# Old solution
+# config = {
+#     # tool's name will be attached to this path
+#     # /home/ubuntu/research-work-2024/evaluation/configurations/RQ1/Llama-31-70B-Instruct/configuration-I/local/
+#     # /home/ubuntu/research-work-2024/headless-out/test
+#     # "/home/ubuntu/research-work-2024/evaluation/configurations/RQ2/GPT-4/configuration-I/test",
+#     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct",
+#     "benchmarksPath": "/home/ubuntu/research-work-2024/evaluation/benchmark/benchmarks",
+#     "benchmarksPatchedPath": "/home/ubuntu/research-work-2024/evaluation/benchmark/benchmarks/benchmarks.json",
+#     "tool": "TestSpark",
+#     "threads": 2,
+# }
 
 
 # Configure logging to output both to a file and to STDOUT
@@ -63,16 +99,27 @@ def execute_analysis(config):
 
 
 
+def main():
+    """
+    Execute the generated tests for every model from `model_configs`
+    and collect line and branch coverage statistics, and compilation rate, and mutation score,
+    storing it into a CSV file under `resultsPath/[tool]`.
+    """
+    for model_config in model_configs:
+        config = { **common_config, **model_config }
+
+        logging.info(f"Running analysis evaluation for model: {model_config['resultsPath']}")
+
+        logging.info('Starting analysis evaluation...')
+        logging.info(f"resultsPath: {config['resultsPath']}")
+        logging.info(f"benchmarksPath: {config['benchmarksPath']}")
+        logging.info(f"benchmarksPatchedPath: {config['benchmarksPatchedPath']}")
+        logging.info(f"threads: {config['threads']}")
+        logging.info(f"tool: {config['tool']}")
+
+        execute_analysis(config)
+
+
+
 if __name__ == '__main__':
-    # parser = argparse.ArgumentParser(description='Run analysis evaluation with specified parameters.')
-    # parser.add_argument('--runs', type=str, required=True, help='Runs to execute (see tga-pipeline\'s format).')
-    # args = parser.parse_args()
-
-    logging.info('Starting analysis evaluation...')
-    logging.info(f"resultsPath: {config['resultsPath']}")
-    logging.info(f"benchmarksPath: {config['benchmarksPath']}")
-    logging.info(f"benchmarksPatchedPath: {config['benchmarksPatchedPath']}")
-    logging.info(f"threads: {config['threads']}")
-    logging.info(f"tool: {config['tool']}")
-
-    execute_analysis(config)
+    main()

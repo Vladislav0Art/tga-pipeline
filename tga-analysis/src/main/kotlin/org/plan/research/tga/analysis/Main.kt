@@ -25,6 +25,7 @@ import org.plan.research.tga.core.tool.TestSuite
 import org.vorpal.research.kthelper.logging.debug
 import org.vorpal.research.kthelper.logging.log
 import org.vorpal.research.kthelper.tryOrNull
+import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.concurrent.ConcurrentLinkedDeque
@@ -140,11 +141,22 @@ fun main(args: Array<String>) {
                 .mapValues { it.value.sorted() }
 
             log.debug(runs)
+            println("Collected runs: $runs")
+
             for ((runName, iterations) in runs) {
                 for (iteration in iterations) {
                     val allData = ConcurrentLinkedDeque<String>()
                     val runDir = toolDir.resolve("$runName-$iteration")
+
+                    val csvFilepath = runDir.resolve("$tool-$runName-$iteration.csv")
+                    if (Files.exists(csvFilepath)) {
+                        log.debug("CSV file already exists: '{}'. Skipping iteration {}", csvFilepath, iteration)
+                        println("CSV file already exists: '$csvFilepath'. Skipping iteration $iteration")
+                        continue
+                    }
+
                     val benchmarks = runDir.listDirectoryEntries().map { it.name }
+
                     for (benchmarkName in benchmarks.sorted()) {
                         allJobs += async {
                             val benchmarkDir = runDir.resolve(benchmarkName)

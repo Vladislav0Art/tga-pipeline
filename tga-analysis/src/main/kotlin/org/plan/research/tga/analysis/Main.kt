@@ -15,6 +15,7 @@ import org.plan.research.tga.analysis.compilation.TestSuiteCompiler
 import org.plan.research.tga.analysis.coverage.jacoco.JacocoCliCoverageProvider
 import org.plan.research.tga.analysis.junit.JUnitExternalRunner
 import org.plan.research.tga.analysis.mutation.MutationScoreProvider
+import org.plan.research.tga.core.coverage.Fraction
 import org.plan.research.tga.core.benchmark.Benchmark
 import org.plan.research.tga.core.benchmark.json.JsonBenchmarkProvider
 import org.plan.research.tga.core.benchmark.json.getJsonSerializer
@@ -195,8 +196,18 @@ fun main(args: Array<String>) {
                             }
 
                             val coverage = coverageProvider.computeCoverage(benchmark, testSuite, compilationResult)
-                            val mutationScore = MutationScoreProvider()
-                                .computeMutationScore(benchmark, testSuite, compilationResult)
+
+                            val mutationScore = try {
+                                MutationScoreProvider().computeMutationScore(benchmark, testSuite, compilationResult)
+                            }
+                            catch (err: Throwable) {
+                                log.warn(
+                                    "Mutation coverage failed with an exception: {}. Skipping mutation score computation for project {}",
+                                    err,
+                                    benchmark.buildId,
+                                )
+                                Fraction(0, 0)
+                            }
 
                             allData += String.format(
                                 "%s,%s,%d,%s,%s,%d,%d,%.2f,%d,%d,%.2f,%d,%d,%.2f,%d,%d,%.2f,%s",

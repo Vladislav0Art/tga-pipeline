@@ -18,66 +18,66 @@ common_config = {
 
 # CUT + 5 iterations
 # rq1_config1 = [
-#     # GPT-4
-#     {
-#         "name": "GPT-4",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I",
-#     },
-#     # Llama-70B
-#     {
-#         "name": "Llama-70B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I",
-#     },
-#     # Llama-8B
-#     {
-#         "name": "Llama-8B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I",
-#     },
-#     # Llama-3B
-#     {
-#         "name": "Llama-3B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I",
-#     },
-#     # Llama-1B
-#     {
-#         "name": "Llama-1B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I",
-#     },
+    # # GPT-4
+    # {
+    #     "name": "GPT-4",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I",
+    # },
+    # # Llama-70B
+    # {
+    #     "name": "Llama-70B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I",
+    # },
+    # # Llama-8B
+    # {
+    #     "name": "Llama-8B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I",
+    # },
+    # Llama-3B
+    # {
+    #     "name": "Llama-3B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I",
+    # },
+    # # Llama-1B
+    # {
+    #     "name": "Llama-1B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I",
+    # },
 # ]
 
 
 # CUT + 1 iterations
-# rq1_config2 = [
-#     # GPT-4
-#     {
-#         "name": "GPT-4",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II",
-#     },
-#     # Llama-70B
-#     {
-#         "name": "Llama-70B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II",
-#     },
-#     # Llama-8B
-#     {
-#         "name": "Llama-8B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II",
-#     },
-#     # Llama-3B
-#     {
-#         "name": "Llama-3B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II",
-#     },
-#     # Llama-1B
-#     {
-#         "name": "Llama-1B",
-#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II",
-#     },
-# ]
+rq1_config2 = [
+    # # GPT-4
+    # {
+    #     "name": "GPT-4",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II",
+    # },
+    # # Llama-70B
+    # {
+    #     "name": "Llama-70B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II",
+    # },
+    # Llama-8B
+    # {
+    #     "name": "Llama-8B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II",
+    # },
+    # # Llama-3B
+    {
+        "name": "Llama-3B",
+        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II",
+    },
+    # # Llama-1B
+    # {
+    #     "name": "Llama-1B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II",
+    # },
+]
 
 
 # METHODS_DECLARATION + 5 iterations
-rq2_config1 = [
+# rq2_config1 = [
     # GPT-4
     # {
     #     "name": "GPT-4",
@@ -94,16 +94,16 @@ rq2_config1 = [
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct",
     # },
     # Llama-3B
-    {
-        "name": "Llama-3B",
-        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct",
-    },
-    # # Llama-1B
+    # {
+    #     "name": "Llama-3B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct",
+    # },
+    # Llama-1B
     # {
     #     "name": "Llama-1B",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct",
     # },
-]
+# ]
 
 
 
@@ -172,7 +172,7 @@ def main():
     and collect line and branch coverage statistics, and compilation rate, and mutation score,
     storing it into a CSV file under `resultsPath/[tool]`.
     """
-    for model_config in rq2_config1:
+    for model_config in rq1_config2:
         config = { **common_config, **model_config }
 
         logging.info(f"==== Running analysis evaluation for '{model_config['name']}' ====")

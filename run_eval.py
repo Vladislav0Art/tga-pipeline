@@ -14,57 +14,57 @@ RUNNER_PORT = 8000
 
 # CUT + 5 iterations
 # rq1_config1 = [
-#     dict({
-#         'model': 'GPT-4',
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I',
-#     }),
-#     dict({
-#         'model': 'Code-Llama-70B-Instruct',
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I',
-#     }),
-#     dict({
-#         'model': 'Llama-3-8B-Instruct',
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I',
-#     }),
-#     dict({
-#         'model': 'llama3.2', # Llama3.2-3B
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I',
-#     }),
-#     dict({
-#         'model': 'llama3.2:1b', # Llama3.2-1B
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I',
-#     }),
+    # dict({ # +
+    #     'model': 'GPT-4',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I',
+    # }),
+    # dict({ # +
+    #     'model': 'Code-Llama-70B-Instruct',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I',
+    # }),
+    # dict({
+    #     'model': 'Llama-3-8B-Instruct',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I',
+    # }),
+    # dict({ # +
+    #     'model': 'llama3.2', # Llama3.2-3B
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I',
+    # }),
+    # dict({ # +
+    #     'model': 'llama3.2:1b', # Llama3.2-1B
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I',
+    # }),
 # ]
 
 
 # CUT + 1 iterations
-# rq1_config2 = [
-#     dict({
-#         'model': 'GPT-4',
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II',
-#     }),
-#     dict({
-#         'model': 'Code-Llama-70B-Instruct',
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II',
-#     }),
-#     dict({
-#         'model': 'Llama-3-8B-Instruct',
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II',
-#     }),
-#     dict({
-#         'model': 'llama3.2', # Llama3.2-3B
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II',
-#     }),
-#     dict({
-#         'model': 'llama3.2:1b', # Llama3.2-1B
-#         'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II',
-#     }),
-# ]
+rq1_config2 = [
+    # dict({
+    #     'model': 'GPT-4',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II',
+    # }),
+    # dict({
+    #     'model': 'Code-Llama-70B-Instruct',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II',
+    # }),
+    # dict({
+    #     'model': 'Llama-3-8B-Instruct',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II',
+    # }),
+    dict({
+        'model': 'llama3.2', # Llama3.2-3B
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II',
+    }),
+    # dict({
+    #     'model': 'llama3.2:1b', # Llama3.2-1B
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II',
+    # }),
+]
 
 
 
 # METHODS_DECLARATION + 5 iterations
-rq2_config1 = [
+# rq2_config1 = [
     # dict({
     #     'model': 'GPT-4',
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4',
@@ -81,10 +81,35 @@ rq2_config1 = [
     #     'model': 'llama3.2', # Llama3.2-3B
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct',
     # }),
+    # dict({
+    #     'model': 'llama3.2:1b', # Llama3.2-1B
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct',
+    # }),
+# ]
+
+
+# METHODS_DECLARATION + 1 iteration
+rq2_config2 = [
     dict({
-        'model': 'llama3.2:1b', # Llama3.2-1B
-        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct',
+        'model': 'GPT-4',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4',
     }),
+    dict({
+        'model': 'Code-Llama-70B-Instruct',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-70B-Instruct',
+    }),
+    # dict({
+    #     'model': 'Llama-3-8B-Instruct',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-8B-Instruct',
+    # }),
+    # dict({
+    #     'model': 'llama3.2', # Llama3.2-3B
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-3B-Instruct',
+    # }),
+    # dict({
+    #     'model': 'llama3.2:1b', # Llama3.2-1B
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-1B-Instruct',
+    # }),
 ]
 
 
@@ -261,7 +286,7 @@ def main():
         'spaceToken': args.spaceToken,
     }
 
-    execute_pipeline_for_config(args=pipeline_args, configs=rq2_config1)
+    execute_pipeline_for_config(args=pipeline_args, configs=rq2_config2)
 
     # execute_pipeline(args=pipeline_args)
 

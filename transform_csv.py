@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import List, Union
 import os
 import csv
+import json
 
 
 # set to True to read the arguments from the command line. See the `parse_arguments` function below
@@ -13,140 +14,189 @@ READ_FROM_CLI = False
 
 # CUT + 5 iterations
 # rq1_config1 = [
-    # # GPT-4
-    # {
-    #     "model": "GPT-4",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "gpt4-RQ1-CUT-5-iter",
-    # },
-    # # Llama-31-70B-Instruct
-    # {
-    #     "model": "Llama-31-70B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama70b-RQ1-CUT-5-iter",
-    # },
-    # # Llama-31-8B-Instruct
-    # {
-    #     "model": "Llama-31-8B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama8b-RQ1-CUT-5-iter",
-    # },
-    # Llama-32-3B-Instruct
-    # {
-    #     "model": "Llama-32-3B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama3b-RQ1-CUT-5-iter",
-    # },
-    # # Llama-32-1B-Instruct
-    # {
-    #     "model": "Llama-32-1B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama1b-RQ1-CUT-5-iter",
-    # },
+#     # # GPT-4
+#     {
+#         "model": "GPT-4",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "gpt4-RQ1-CUT-5-iter",
+#     },
+#     # # Llama-31-70B-Instruct
+#     {
+#         "model": "Llama-31-70B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama70b-RQ1-CUT-5-iter",
+#     },
+#     # # Llama-31-8B-Instruct
+#     {
+#         "model": "Llama-31-8B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama8b-RQ1-CUT-5-iter",
+#     },
+#     # # Llama-32-3B-Instruct
+#     {
+#         "model": "Llama-32-3B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama3b-RQ1-CUT-5-iter",
+#     },
+#     # # Llama-32-1B-Instruct
+#     {
+#         "model": "Llama-32-1B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama1b-RQ1-CUT-5-iter",
+#     },
 # ]
 
 
 
 # CUT + 1 iteration
-rq1_config2 = [
-    # # GPT-4
-    # {
-    #     "model": "GPT-4",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "gpt4-RQ1-CUT-1-iter",
-    # },
-    # # Llama-31-70B-Instruct
-    # {
-    #     "model": "Llama-31-70B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama70b-RQ1-CUT-1-iter",
-    # },
-    # Llama-31-8B-Instruct
-    # {
-    #     "model": "Llama-31-8B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama8b-RQ1-CUT-1-iter",
-    # },
-    # # Llama-32-3B-Instruct
-    {
-        "model": "Llama-32-3B-Instruct",
-        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II/TestSpark",
-        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II/TestSpark/results.csv",
-        "format": "reduced",
-        "prompt_id": "llama3b-RQ1-CUT-1-iter",
-    },
-    # # Llama-32-1B-Instruct
-    # {
-    #     "model": "Llama-32-1B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama1b-RQ1-CUT-1-iter",
-    # },
-]
+# rq1_config2 = [
+#     # GPT-4
+#     {
+#         "model": "GPT-4",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "gpt4-RQ1-CUT-1-iter",
+#     },
+#     # Llama-31-70B-Instruct
+#     {
+#         "model": "Llama-31-70B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama70b-RQ1-CUT-1-iter",
+#     },
+#     # Llama-31-8B-Instruct
+#     {
+#         "model": "Llama-31-8B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama8b-RQ1-CUT-1-iter",
+#     },
+#     # Llama-32-3B-Instruct
+#     {
+#         "model": "Llama-32-3B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama3b-RQ1-CUT-1-iter",
+#     },
+#     # Llama-32-1B-Instruct
+#     {
+#         "model": "Llama-32-1B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama1b-RQ1-CUT-1-iter",
+#     },
+# ]
 
 
 
 
 # METHODS_DECLARATION + 5 iterations
 # rq2_config1 = [
-    # GPT-4
-    # {
-    #     "model": "GPT-4",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "gpt4-RQ2",
-    # },
-    # Llama-31-70B-Instruct
-    # {
-    #     "model": "Llama-31-70B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama70b-RQ2",
-    # },
-    # # Llama-31-8B-Instruct
-    # {
-    #     "model": "Llama-31-8B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama8b-RQ2",
-    # },
-    # # Llama-32-3B-Instruct
-    # {
-    #     "model": "Llama-32-3B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama3b-RQ2",
-    # },
-    # Llama-32-1B-Instruct
-    # {
-    #     "model": "Llama-32-1B-Instruct",
-    #     "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark",
-    #     "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark/results.csv",
-    #     "format": "reduced",
-    #     "prompt_id": "llama1b-RQ2",
-    # },
+#     # GPT-4
+#     {
+#         "model": "GPT-4",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "gpt4-RQ2",
+#     },
+#     # Llama-31-70B-Instruct
+#     {
+#         "model": "Llama-31-70B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama70b-RQ2",
+#     },
+#     # Llama-31-8B-Instruct
+#     {
+#         "model": "Llama-31-8B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama8b-RQ2",
+#     },
+#     # Llama-32-3B-Instruct
+#     {
+#         "model": "Llama-32-3B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama3b-RQ2",
+#     },
+#     # Llama-32-1B-Instruct
+#     {
+#         "model": "Llama-32-1B-Instruct",
+#         "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark",
+#         "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct/TestSpark/results.csv",
+#         "format": "reduced",
+#         "prompt_id": "llama1b-RQ2",
+#     },
 # ]
+
+
+
+# METHODS_DECLARATION + 1 iterations
+rq2_config2 = [
+    # GPT-4
+    {
+        "model": "GPT-4",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "gpt4-RQ2-config-II",
+    },
+    # Llama-31-70B-Instruct
+    {
+        "model": "Llama-31-70B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-70B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-70B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "llama70b-RQ2-config-II",
+    },
+    # Llama-31-8B-Instruct
+    {
+        "model": "Llama-31-8B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-8B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-8B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "llama8b-RQ2-config-II",
+    },
+    # Llama-32-3B-Instruct
+    {
+        "model": "Llama-32-3B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-3B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-3B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "llama3b-RQ2-config-II",
+    },
+    # Llama-32-1B-Instruct
+    {
+        "model": "Llama-32-1B-Instruct",
+        "project_filepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-1B-Instruct/TestSpark",
+        "savefilepath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-1B-Instruct/TestSpark/results.csv",
+        "format": "reduced",
+        "prompt_id": "llama1b-RQ2-config-II",
+    },
+]
+
+
+
 
 
 logging.basicConfig(
@@ -188,6 +238,8 @@ class MetricsCollection:
 
     benchmark_properties: str | None
 
+    used_iterations: int
+
 
 
 @dataclass
@@ -198,6 +250,33 @@ class ExecutationStatistics:
     build_id: str
     klass: str # qualified name of a class
     metrics: MetricsCollection
+
+
+def count_used_iterations(compilations_json_filepath: str) -> int:
+    try:
+        with open(compilations_json_filepath, 'r') as compilations_file:
+            compilations_data = json.load(compilations_file)
+
+            if 'iterations' not in compilations_data:
+                logging.warning(f"Key 'iterations' not found in the file: '{compilations_json_filepath}'")
+                return 0
+
+            iterations = compilations_data['iterations']
+            used_iterations_count = len(iterations)
+
+            # for iteration in iterations:
+            #     if iteration['testSuite']['exitCode'] == 0:
+            #         used_iterations_count = iteration['iteration']
+            #         break
+
+            # assert len(iterations) == used_iterations_count, \
+            #     f"The number of iterations in the '{compilations_json_filepath}' file does not match the calculated number of used iterations: expected {len(iterations)}, but calculated {used_iterations_count}"
+
+            return used_iterations_count
+
+    except FileNotFoundError:
+        print(f"Error: The file {compilations_json_filepath} does not exist.")
+        return 0
 
 
 
@@ -214,6 +293,7 @@ def collect_iterations_executation_data(project_filepath: str) -> List[Executati
     statistics: List[ExecutationStatistics] = []
 
     for dir_name in os.listdir(project_filepath):
+        # e.g.: `my/path/to/TestSpark/run-0`
         dir_path = os.path.join(project_filepath, dir_name)
 
         if os.path.isdir(dir_path):
@@ -243,6 +323,11 @@ def collect_iterations_executation_data(project_filepath: str) -> List[Executati
                     for row in reader:
                         count += 1
 
+                        # collect the number of used iterations
+                        iterations_info_filepath = os.path.join(dir_path, row['buildId'], "generated-artifacts", f"compilations.json")
+                        logging.info(f"Calculating the number of used iterations for build ID '{row['buildId']}' under '{iterations_info_filepath}'")
+                        used_iterations = count_used_iterations(iterations_info_filepath)
+
                         metrics = MetricsCollection(
                             compilation_rate_numerator=int(row['compilationRateNumerator']),
                             compilation_rate_denominator=int(row['compilationRateDenominator']),
@@ -260,7 +345,9 @@ def collect_iterations_executation_data(project_filepath: str) -> List[Executati
                             mutation_score_denominator=int(row['mutationScoreDenominator']),
                             mutation_score_percent=float(row['mutationScorePercent']),
 
-                            benchmark_properties=row['benchmarkProperties'] if row['benchmarkProperties'] else None
+                            benchmark_properties=row['benchmarkProperties'] if row['benchmarkProperties'] else None,
+
+                            used_iterations=used_iterations
                         )
 
                         stat = ExecutationStatistics(
@@ -340,6 +427,8 @@ def collect_and_transform_csv_files(config):
                     metrics.mutation_score_percent,
 
                     metrics.benchmark_properties if (metrics.benchmark_properties is not None) else "",
+
+                    metrics.used_iterations,
                 ]))
 
                 savefile.write(f"{entry}\n")
@@ -368,6 +457,8 @@ def collect_and_transform_csv_files(config):
                     # compilation rate
                     metrics.compilation_rate_numerator, # compilable_test_cases
                     metrics.compilation_rate_denominator, # total_test_cases
+
+                    metrics.used_iterations,
                 ]))
 
                 savefile.write(f"{entry}\n")
@@ -430,7 +521,7 @@ def main():
             }
         ```
         """
-        for config in rq1_config2:
+        for config in rq2_config2:
             logging.info(f"Processing configuration: {config}")
             collect_and_transform_csv_files(config)
 

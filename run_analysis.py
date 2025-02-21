@@ -33,7 +33,7 @@ common_config = {
     #     "name": "Llama-8B",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I",
     # },
-    # Llama-3B
+    # # Llama-3B
     # {
     #     "name": "Llama-3B",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I",
@@ -47,7 +47,7 @@ common_config = {
 
 
 # CUT + 1 iterations
-rq1_config2 = [
+# rq1_config2 = [
     # # GPT-4
     # {
     #     "name": "GPT-4",
@@ -58,27 +58,27 @@ rq1_config2 = [
     #     "name": "Llama-70B",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II",
     # },
-    # Llama-8B
+    # # Llama-8B
     # {
     #     "name": "Llama-8B",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II",
     # },
     # # Llama-3B
-    {
-        "name": "Llama-3B",
-        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II",
-    },
-    # # Llama-1B
     # {
-    #     "name": "Llama-1B",
-    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II",
+    #     "name": "Llama-3B",
+    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II",
     # },
-]
+    # # Llama-1B
+#     {
+#         "name": "Llama-1B",
+#         "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II",
+#     },
+# ]
 
 
 # METHODS_DECLARATION + 5 iterations
-# rq2_config1 = [
-    # GPT-4
+rq2_config1 = [
+    # # GPT-4
     # {
     #     "name": "GPT-4",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4",
@@ -93,18 +93,47 @@ rq1_config2 = [
     #     "name": "Llama-8B",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct",
     # },
-    # Llama-3B
-    # {
-    #     "name": "Llama-3B",
-    #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct",
-    # },
-    # Llama-1B
+    # # Llama-3B
+    {
+        "name": "Llama-3B",
+        "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct",
+    },
+    # # Llama-1B
     # {
     #     "name": "Llama-1B",
     #     "resultsPath": "/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct",
     # },
-# ]
+]
 
+
+
+# METHODS_DECLARATION + 1 iteration
+# rq2_config2 = [
+#     dict({
+#         'name': 'GPT-4',
+#         'resultsPath': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4',
+#     }),
+    # dict({
+    #     'name': 'GPT-4',
+    #     'resultsPath': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4-attempt-2',
+    # }),
+    # dict({
+    #     'name': 'Code-Llama-70B-Instruct',
+    #     'resultsPath': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-70B-Instruct',
+    # }),
+    # dict({
+    #     'name': 'Llama-3-8B-Instruct',
+    #     'resultsPath': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-8B-Instruct',
+    # }),
+    # dict({
+    #     'name': 'llama3.2', # Llama3.2-3B
+    #     'resultsPath': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-3B-Instruct',
+    # }),
+    # dict({
+    #     'name': 'llama3.2:1b', # Llama3.2-1B
+    #     'resultsPath': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-1B-Instruct',
+    # }),
+# ]
 
 
 
@@ -172,7 +201,7 @@ def main():
     and collect line and branch coverage statistics, and compilation rate, and mutation score,
     storing it into a CSV file under `resultsPath/[tool]`.
     """
-    for model_config in rq1_config2:
+    for model_config in rq2_config1:
         config = { **common_config, **model_config }
 
         logging.info(f"==== Running analysis evaluation for '{model_config['name']}' ====")

@@ -13,19 +13,23 @@ RUNNER_PORT = 8000
 
 
 # CUT + 5 iterations
-# rq1_config1 = [
+rq1_config1 = [
     # dict({ # +
     #     'model': 'GPT-4',
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-I',
     # }),
-    # dict({ # +
-    #     'model': 'Code-Llama-70B-Instruct',
-    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I',
-    # }),
-    # dict({
-    #     'model': 'Llama-3-8B-Instruct',
-    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I',
-    # }),
+    dict({ # +
+        'model': 'Code-Llama-70B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-I',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/temp-0.8/config-I',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-24-llama70b.json',
+    }),
+    dict({
+        'model': 'Llama-3-8B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-I',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/temp-0.8/config-I',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-18-llama8b.json',
+    }),
     # dict({ # +
     #     'model': 'llama3.2', # Llama3.2-3B
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-I',
@@ -34,7 +38,7 @@ RUNNER_PORT = 8000
     #     'model': 'llama3.2:1b', # Llama3.2-1B
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-I',
     # }),
-# ]
+]
 
 
 # CUT + 1 iterations
@@ -43,18 +47,22 @@ rq1_config2 = [
     #     'model': 'GPT-4',
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/GPT-4/config-II',
     # }),
-    # dict({
-    #     'model': 'Code-Llama-70B-Instruct',
-    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II',
-    # }),
-    # dict({
-    #     'model': 'Llama-3-8B-Instruct',
-    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II',
-    # }),
     dict({
-        'model': 'llama3.2', # Llama3.2-3B
-        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II',
+        'model': 'Code-Llama-70B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/config-II',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-70B-Instruct/temp-0.8/config-II',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-24-llama70b.json',
     }),
+    dict({
+        'model': 'Llama-3-8B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/config-II',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-31-8B-Instruct/temp-0.8/config-II',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-18-llama8b.json',
+    }),
+    # dict({
+    #     'model': 'llama3.2', # Llama3.2-3B
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-3B-Instruct/config-II',
+    # }),
     # dict({
     #     'model': 'llama3.2:1b', # Llama3.2-1B
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ1/Llama-32-1B-Instruct/config-II',
@@ -64,19 +72,23 @@ rq1_config2 = [
 
 
 # METHODS_DECLARATION + 5 iterations
-# rq2_config1 = [
+rq2_config1 = [
     # dict({
     #     'model': 'GPT-4',
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/GPT-4',
     # }),
-    # dict({
-    #     'model': 'Code-Llama-70B-Instruct',
-    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct',
-    # }),
-    # dict({
-    #     'model': 'Llama-3-8B-Instruct',
-    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct',
-    # }),
+    dict({
+        'model': 'Code-Llama-70B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-70B-Instruct',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/temp-0.8/Llama-31-70B-Instruct',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-24-llama70b.json',
+    }),
+    dict({
+        'model': 'Llama-3-8B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-31-8B-Instruct',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/temp-0.8/Llama-31-8B-Instruct',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-18-llama8b.json',
+    }),
     # dict({
     #     'model': 'llama3.2', # Llama3.2-3B
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-3B-Instruct',
@@ -85,23 +97,31 @@ rq1_config2 = [
     #     'model': 'llama3.2:1b', # Llama3.2-1B
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2/Llama-32-1B-Instruct',
     # }),
-# ]
+]
 
 
 # METHODS_DECLARATION + 1 iteration
 rq2_config2 = [
-    dict({
-        'model': 'GPT-4',
-        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4',
-    }),
+    # dict({
+    #     'model': 'GPT-4',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4',
+    # }),
+    # dict({
+    #     'model': 'GPT-4',
+    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/GPT-4-attempt-2',
+    # }),
     dict({
         'model': 'Code-Llama-70B-Instruct',
-        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-70B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-70B-Instruct',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/temp-0.8/Llama-31-70B-Instruct',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-24-llama70b.json',
     }),
-    # dict({
-    #     'model': 'Llama-3-8B-Instruct',
-    #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-8B-Instruct',
-    # }),
+    dict({ # +
+        'model': 'Llama-3-8B-Instruct',
+        # 'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-31-8B-Instruct',
+        'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/temp-0.8/Llama-31-8B-Instruct',
+        'benchmarks': '/home/ubuntu/research-work-2024/evaluation/final/configurations/benchmarks/temp-0.8/benchmarks-18-llama8b.json',
+    }),
     # dict({
     #     'model': 'llama3.2', # Llama3.2-3B
     #     'output': '/home/ubuntu/research-work-2024/evaluation/final/configurations/RQ2-config-II/Llama-32-3B-Instruct',
@@ -131,7 +151,6 @@ def execute_pipeline_for_config(args, configs):
     os.environ['TGA_PIPELINE_HOME'] = TGA_PIPELINE_HOME
     os.environ['TEST_SPARK_HOME'] = TEST_SPARK_HOME
 
-    benchmarks_config = args['config']
     port = args['port']
     run_name = args['runName']
     runs = args['runs']
@@ -146,8 +165,11 @@ def execute_pipeline_for_config(args, configs):
 
     for config in configs:
         model, output = config['model'], config['output']
+        # NOTE: either supply the benchmarks via CLI or in the config dicts
+        benchmarks_config = config['benchmarks'] if ('benchmarks' in config) else args['config']
 
         logging.info(f"Model: {model}; output: '{output}'")
+        logging.info(f"Using benchmark at: '{benchmarks_config}'")
 
         # TODO: you stop a wrong process! it should be TestSpark, not runner
         logging.info("Stopping gradle deamons...")
@@ -286,7 +308,7 @@ def main():
         'spaceToken': args.spaceToken,
     }
 
-    execute_pipeline_for_config(args=pipeline_args, configs=rq2_config2)
+    execute_pipeline_for_config(args=pipeline_args, configs=rq1_config1)
 
     # execute_pipeline(args=pipeline_args)
 
